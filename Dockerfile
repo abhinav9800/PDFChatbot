@@ -1,31 +1,20 @@
-FROM python:3.9-slim
-
-
-ENV DEBIAN_FRONTEND=noninteractive
+FROM python:3.9-slim-buster
 
 # Set the working directory
 WORKDIR /app
 
 # Install system dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
+RUN apt update -y && apt install -y \
     libpoppler-cpp-dev \
-    libpoppler-dev \
-    gcc \
     libmagic1 \
-    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Python dependencies
-RUN pip install --no-cache-dir streamlit \
-    langchain-community \
-    langchain-chroma \
-    langchain_ollama \
-    ollama \
-    pypdf
-
 # Copy the current directory contents into the container
-COPY . .
+COPY . /app
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Command to run the Streamlit app
 CMD ["streamlit", "run", "app.py"]
+
