@@ -2,6 +2,6 @@ streamlit
 langchain-community
 langchain-chroma
 langchain_ollama
-tempfile
 ollama
 pypdf
+
